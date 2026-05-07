@@ -133,6 +133,7 @@
                 <li><a href="{{ url('/admin_administrasi/sk') }}"><i class="fas fa-certificate"></i> Kelola SK</a></li>
                 <li><a href="{{ url('/admin_administrasi/sk/arsip') }}"><i class="fas fa-archive"></i> Arsip SK</a></li>
                 <li><a href="{{ url('/admin_administrasi/riwayat-usulan') }}"><i class="fas fa-history"></i> Riwayat Usulan</a></li>
+                <li><a href="{{ url('/laporan/rekap-usulan') }}"><i class="fas fa-chart-bar"></i> Laporan Rekap Usulan</a></li>
                 <li><a href="{{ url('/admin_administrasi/log-integrasi') }}"><i class="fas fa-exchange-alt"></i> Log Integrasi</a></li>
             </ul>
         </div>
