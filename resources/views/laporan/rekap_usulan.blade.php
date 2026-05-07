@@ -296,19 +296,27 @@
     <div class="dashboard-wrapper">
         <div class="sidebar">
             <ul class="sidebar-menu">
-                <li><a href="{{ url('/dashboard/admin_administrasi') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
+                <li class="{{ Request::is('dashboard/admin_administrasi') ? 'active' : '' }}">
+                    <a href="{{ url('/dashboard/admin_administrasi') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
                 </li>
-                <li><a href="{{ url('/admin_administrasi/sk') }}"><i class="fas fa-file-signature"></i> Kelola SK</a>
+                <li class="{{ Request::is('bahan-rapat/admin*') ? 'active' : '' }}">
+                    <a href="{{ url('/bahan-rapat/admin') }}"><i class="fas fa-file-alt"></i> Bahan Rapat</a>
                 </li>
-                <li><a href="{{ url('/bahan-rapat/admin') }}"><i class="fas fa-file-alt"></i> Persetujuan Bahan
-                        Rapat</a></li>
-                <li><a href="{{ url('/admin_administrasi/sk/arsip') }}"><i class="fas fa-archive"></i> Arsip SK</a></li>
-                <li><a href="{{ url('/admin_administrasi/riwayat-usulan') }}"><i class="fas fa-history"></i> Riwayat
-                        Usulan</a></li>
-                <li class="active"><a href="{{ url('/admin_administrasi/laporan/rekap-usulan') }}"><i class="fas fa-chart-bar"></i> Laporan
-                        Rekap Usulan</a></li>
-                <li><a href="{{ url('/admin_administrasi/log-integrasi') }}"><i class="fas fa-exchange-alt"></i> Log
-                        Integrasi SIASN</a></li>
+                <li class="{{ Request::is('admin_administrasi/sk') || Request::is('admin_administrasi/sk/create') || Request::is('admin_administrasi/sk/*/edit') ? 'active' : '' }}">
+                    <a href="{{ url('/admin_administrasi/sk') }}"><i class="fas fa-certificate"></i> Kelola SK</a>
+                </li>
+                <li class="{{ Request::is('admin_administrasi/sk/arsip') ? 'active' : '' }}">
+                    <a href="{{ url('/admin_administrasi/sk/arsip') }}"><i class="fas fa-archive"></i> Arsip SK</a>
+                </li>
+                <li class="{{ Request::is('admin_administrasi/riwayat-usulan') ? 'active' : '' }}">
+                    <a href="{{ url('/admin_administrasi/riwayat-usulan') }}"><i class="fas fa-history"></i> Riwayat Usulan</a>
+                </li>
+                <li class="{{ Request::is('admin_administrasi/laporan/rekap-usulan') ? 'active' : '' }}">
+                    <a href="{{ url('/admin_administrasi/laporan/rekap-usulan') }}"><i class="fas fa-chart-bar"></i> Laporan Rekap Usulan</a>
+                </li>
+                <li class="{{ Request::is('admin_administrasi/log-integrasi') ? 'active' : '' }}">
+                    <a href="{{ url('/admin_administrasi/log-integrasi') }}"><i class="fas fa-exchange-alt"></i> Log Integrasi</a>
+                </li>
             </ul>
         </div>
 
