@@ -275,6 +275,13 @@
 </head>
 
 <body>
+    @php
+        /** 
+         * @var string $bulan 
+         * @var string $tahun 
+         * @var \Illuminate\Database\Eloquent\Collection $usulan 
+         */
+    @endphp
     <div class="navbar">
         <div class="logo-area">
             <img src="{{ asset('images/logobkpsdm.jpg') }}" alt="Logo BKPSDM" class="logo-img">
