@@ -37,8 +37,12 @@ class UsulanController extends Controller
             'jenis_usulan' => 'required|in:promosi,mutasi,demosi,pemberhentian',
             'jabatan_baru' => 'required_if:jenis_usulan,promosi',
             'golongan_baru' => 'required_if:jenis_usulan,promosi',
-            'unit_kerja_tujuan' => 'required_if:jenis_usulan,mutasi,demosi',
-            'alasan_perpindahan' => 'required_if:jenis_usulan,mutasi,demosi',
+            'unit_kerja_tujuan_mutasi' => 'required_if:jenis_usulan,mutasi',
+            'alasan_mutasi' => 'required_if:jenis_usulan,mutasi',
+            'jabatan_baru_demosi' => 'required_if:jenis_usulan,demosi',
+            'golongan_baru_demosi' => 'required_if:jenis_usulan,demosi',
+            'unit_kerja_tujuan_demosi' => 'required_if:jenis_usulan,demosi',
+            'alasan_demosi' => 'required_if:jenis_usulan,demosi',
             'alasan_pemberhentian' => 'required_if:jenis_usulan,pemberhentian',
             'tanggal_efektif' => 'required_if:jenis_usulan,pemberhentian',
             'nomor_surat' => 'required',
@@ -60,6 +64,22 @@ class UsulanController extends Controller
         $filename = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('uploads/surat_usulan', $filename, 'public');
         
+        $jabatan_baru = $request->jabatan_baru;
+        $golongan_baru = $request->golongan_baru;
+        $unit_kerja_tujuan = null;
+        $alasan_perpindahan = null;
+
+        if ($request->jenis_usulan == 'mutasi') {
+            $jabatan_baru = $request->jabatan_baru_mutasi; // Opsional
+            $unit_kerja_tujuan = $request->unit_kerja_tujuan_mutasi;
+            $alasan_perpindahan = $request->alasan_mutasi;
+        } elseif ($request->jenis_usulan == 'demosi') {
+            $jabatan_baru = $request->jabatan_baru_demosi;
+            $golongan_baru = $request->golongan_baru_demosi;
+            $unit_kerja_tujuan = $request->unit_kerja_tujuan_demosi;
+            $alasan_perpindahan = $request->alasan_demosi;
+        }
+
         $usulan = Usulan::create([
             'nip' => $request->nip,
             'id_opd_pengusul' => $user->id_opd,
@@ -68,11 +88,11 @@ class UsulanController extends Controller
             'jabatan_lama' => $pegawai->jabatan_saat_ini,
             'golongan_lama' => $pegawai->golongan,
             'unit_kerja_lama' => $pegawai->unit_kerja,
-            'jabatan_baru' => $request->jabatan_baru,
-            'golongan_baru' => $request->golongan_baru,
-            'unit_kerja_tujuan' => $request->unit_kerja_tujuan,
+            'jabatan_baru' => $jabatan_baru,
+            'golongan_baru' => $golongan_baru,
+            'unit_kerja_tujuan' => $unit_kerja_tujuan,
             'angka_kredit_usulan' => $request->angka_kredit_usulan,
-            'alasan_perpindahan' => $request->alasan_perpindahan,
+            'alasan_perpindahan' => $alasan_perpindahan,
             'alasan_pemberhentian' => $request->alasan_pemberhentian,
             'tanggal_efektif' => $request->tanggal_efektif,
             'nomor_surat' => $request->nomor_surat,
@@ -134,11 +154,18 @@ class UsulanController extends Controller
             return redirect()->route('usulan.index')->with('error', 'Usulan tidak dapat diedit karena sudah diproses');
         }
         
+        // Inject jenis_usulan to request for validation
+        $request->merge(['jenis_usulan' => $usulan->jenis_usulan]);
+        
         $request->validate([
             'jabatan_baru' => 'required_if:jenis_usulan,promosi',
             'golongan_baru' => 'required_if:jenis_usulan,promosi',
-            'unit_kerja_tujuan' => 'required_if:jenis_usulan,mutasi,demosi',
-            'alasan_perpindahan' => 'required_if:jenis_usulan,mutasi,demosi',
+            'unit_kerja_tujuan_mutasi' => 'required_if:jenis_usulan,mutasi',
+            'alasan_mutasi' => 'required_if:jenis_usulan,mutasi',
+            'jabatan_baru_demosi' => 'required_if:jenis_usulan,demosi',
+            'golongan_baru_demosi' => 'required_if:jenis_usulan,demosi',
+            'unit_kerja_tujuan_demosi' => 'required_if:jenis_usulan,demosi',
+            'alasan_demosi' => 'required_if:jenis_usulan,demosi',
             'alasan_pemberhentian' => 'required_if:jenis_usulan,pemberhentian',
             'tanggal_efektif' => 'required_if:jenis_usulan,pemberhentian',
             'nomor_surat' => 'required',
@@ -149,12 +176,28 @@ class UsulanController extends Controller
             'file_surat' => 'nullable|file|mimes:pdf|max:2048',
         ]);
         
+        $jabatan_baru = $request->jabatan_baru;
+        $golongan_baru = $request->golongan_baru;
+        $unit_kerja_tujuan = null;
+        $alasan_perpindahan = null;
+
+        if ($usulan->jenis_usulan == 'mutasi') {
+            $jabatan_baru = $request->jabatan_baru_mutasi; // Opsional
+            $unit_kerja_tujuan = $request->unit_kerja_tujuan_mutasi;
+            $alasan_perpindahan = $request->alasan_mutasi;
+        } elseif ($usulan->jenis_usulan == 'demosi') {
+            $jabatan_baru = $request->jabatan_baru_demosi;
+            $golongan_baru = $request->golongan_baru_demosi;
+            $unit_kerja_tujuan = $request->unit_kerja_tujuan_demosi;
+            $alasan_perpindahan = $request->alasan_demosi;
+        }
+
         $updateData = [
-            'jabatan_baru' => $request->jabatan_baru,
-            'golongan_baru' => $request->golongan_baru,
-            'unit_kerja_tujuan' => $request->unit_kerja_tujuan,
+            'jabatan_baru' => $jabatan_baru,
+            'golongan_baru' => $golongan_baru,
+            'unit_kerja_tujuan' => $unit_kerja_tujuan,
             'angka_kredit_usulan' => $request->angka_kredit_usulan,
-            'alasan_perpindahan' => $request->alasan_perpindahan,
+            'alasan_perpindahan' => $alasan_perpindahan,
             'alasan_pemberhentian' => $request->alasan_pemberhentian,
             'tanggal_efektif' => $request->tanggal_efektif,
             'nomor_surat' => $request->nomor_surat,

@@ -236,22 +236,72 @@
                         </div>
                     </div>
 
-                    <!-- D. MUTASI / DEMOSI -->
-                    <div id="form_mutasi_demosi" style="display: none;">
-                        <div class="section-title">D. Data Mutasi / Demosi</div>
-                        <div class="form-group">
-                            <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
-                            <input type="text" name="unit_kerja_tujuan" placeholder="Contoh: UPTD Puskesmas Jati">
+                    <!-- D. MUTASI -->
+                    <div id="form_mutasi" style="display: none;">
+                        <div class="section-title">D. Data Mutasi</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jabatan Baru (Opsional)</label>
+                                <input type="text" name="jabatan_baru_mutasi" placeholder="Isi jika mutasi diikuti perubahan jabatan">
+                            </div>
+                            <div class="form-group">
+                                <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
+                                <input type="text" name="unit_kerja_tujuan_mutasi" placeholder="Contoh: UPTD Puskesmas Jati">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Alasan Perpindahan / Demosi <span style="color:red;">*</span></label>
-                            <textarea name="alasan_perpindahan" rows="2" placeholder="Jelaskan alasan pemindahan/demosi"></textarea>
+                            <label>Alasan Perpindahan <span style="color:red;">*</span></label>
+                            <textarea name="alasan_mutasi" rows="2" placeholder="Jelaskan alasan pemindahan"></textarea>
                         </div>
                     </div>
 
-                    <!-- E. PEMBERHENTIAN -->
+                    <!-- E. DEMOSI -->
+                    <div id="form_demosi" style="display: none;">
+                        <div class="section-title">E. Data Demosi</div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jabatan Baru <span style="color:red;">*</span></label>
+                                <input type="text" name="jabatan_baru_demosi" placeholder="Contoh: Analis Kebijakan Ahli Muda">
+                            </div>
+                            <div class="form-group">
+                                <label>Golongan Baru <span style="color:red;">*</span></label>
+                                <select name="golongan_baru_demosi">
+                                    <option value="">Pilih Golongan</option>
+                                    <option value="I/a">I/a</option>
+                                    <option value="I/b">I/b</option>
+                                    <option value="I/c">I/c</option>
+                                    <option value="I/d">I/d</option>
+                                    <option value="II/a">II/a</option>
+                                    <option value="II/b">II/b</option>
+                                    <option value="II/c">II/c</option>
+                                    <option value="II/d">II/d</option>
+                                    <option value="III/a">III/a</option>
+                                    <option value="III/b">III/b</option>
+                                    <option value="III/c">III/c</option>
+                                    <option value="III/d">III/d</option>
+                                    <option value="IV/a">IV/a</option>
+                                    <option value="IV/b">IV/b</option>
+                                    <option value="IV/c">IV/c</option>
+                                    <option value="IV/d">IV/d</option>
+                                    <option value="IV/e">IV/e</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
+                                <input type="text" name="unit_kerja_tujuan_demosi" placeholder="Contoh: UPTD Puskesmas Jati">
+                            </div>
+                            <div class="form-group">
+                                <label>Alasan Penurunan Jabatan / Sanksi <span style="color:red;">*</span></label>
+                                <textarea name="alasan_demosi" rows="2" placeholder="Jelaskan sanksi atau alasan demosi kinerja"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- F. PEMBERHENTIAN -->
                     <div id="form_pemberhentian" style="display: none;">
-                        <div class="section-title">E. Data Pemberhentian</div>
+                        <div class="section-title">F. Data Pemberhentian</div>
                         <div class="form-group">
                             <label>Alasan Pemberhentian <span style="color:red;">*</span></label>
                             <select name="alasan_pemberhentian">
@@ -267,8 +317,8 @@
                         </div>
                     </div>
 
-                    <!-- F. SURAT PENGANTAR -->
-                    <div class="section-title">F. Surat Pengantar</div>
+                    <!-- G. SURAT PENGANTAR -->
+                    <div class="section-title">G. Surat Pengantar</div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Nomor Surat <span style="color:red;">*</span></label>
@@ -303,8 +353,8 @@
                         </div>
                     </div>
 
-                    <!-- G. PERSYARATAN -->
-                    <div class="section-title">G. Persyaratan (Wajib Upload)</div>
+                    <!-- H. PERSYARATAN -->
+                    <div class="section-title">H. Persyaratan (Wajib Upload)</div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>SK CPNS</label>
@@ -367,18 +417,22 @@
         // Tampilkan form sesuai jenis usulan
         const jenisUsulan = document.getElementById('jenis_usulan');
         const formPromosi = document.getElementById('form_promosi');
-        const formMutasiDemosi = document.getElementById('form_mutasi_demosi');
+        const formMutasi = document.getElementById('form_mutasi');
+        const formDemosi = document.getElementById('form_demosi');
         const formPemberhentian = document.getElementById('form_pemberhentian');
 
         jenisUsulan.addEventListener('change', function() {
             formPromosi.style.display = 'none';
-            formMutasiDemosi.style.display = 'none';
+            formMutasi.style.display = 'none';
+            formDemosi.style.display = 'none';
             formPemberhentian.style.display = 'none';
             
             if (this.value === 'promosi') {
                 formPromosi.style.display = 'block';
-            } else if (this.value === 'mutasi' || this.value === 'demosi') {
-                formMutasiDemosi.style.display = 'block';
+            } else if (this.value === 'mutasi') {
+                formMutasi.style.display = 'block';
+            } else if (this.value === 'demosi') {
+                formDemosi.style.display = 'block';
             } else if (this.value === 'pemberhentian') {
                 formPemberhentian.style.display = 'block';
             }

@@ -82,4 +82,5 @@ Route::prefix('admin_administrasi')->group(function () {
     // Laporan Rekapitulasi Usulan
     Route::get('/laporan/rekap-usulan', [LaporanController::class, 'rekapUsulan'])->name('laporan.rekap_usulan');
     Route::get('/laporan/export-csv', [LaporanController::class, 'exportCsv'])->name('laporan.export_csv');
+    Route::get('/laporan/export-pdf', [LaporanController::class, 'exportPdf'])->name('laporan.export_pdf');
 });

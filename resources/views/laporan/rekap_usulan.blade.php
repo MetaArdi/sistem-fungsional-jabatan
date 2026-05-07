@@ -316,10 +316,16 @@
             <div class="card">
                 <div class="card-header">
                     <h2><i class="fas fa-chart-bar"></i> Rekapitulasi Usulan</h2>
-                    <a href="{{ route('laporan.export_csv', ['bulan' => $bulan, 'tahun' => $tahun]) }}"
-                        class="btn-export">
-                        <i class="fas fa-file-csv"></i> Export CSV
-                    </a>
+                    <div style="display: flex; gap: 10px;">
+                        <a href="{{ route('laporan.export_pdf', ['bulan' => $bulan, 'tahun' => $tahun]) }}"
+                            class="btn-export" style="background-color: #ef4444;">
+                            <i class="fas fa-file-pdf"></i> Export PDF
+                        </a>
+                        <a href="{{ route('laporan.export_csv', ['bulan' => $bulan, 'tahun' => $tahun]) }}"
+                            class="btn-export">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </a>
+                    </div>
                 </div>
 
                 <form method="GET" action="{{ route('laporan.rekap_usulan') }}" class="filter-section">

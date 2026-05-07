@@ -166,12 +166,16 @@
                                 <td>{{ $item->nip }}</td>
                                 <td>{{ $item->pegawai->nama_lengkap ?? '-' }}</td>
                                 <td>
-                                    @if($item->jenis_usulan == 'kenaikan')
-                                        <span class="status-badge status-menunggu">Kenaikan</span>
-                                    @elseif($item->jenis_usulan == 'perpindahan')
-                                        <span class="status-badge status-diverifikasi">Perpindahan</span>
-                                    @else
+                                    @if($item->jenis_usulan == 'promosi')
+                                        <span class="status-badge status-selesai">Promosi</span>
+                                    @elseif($item->jenis_usulan == 'mutasi')
+                                        <span class="status-badge status-diverifikasi">Mutasi</span>
+                                    @elseif($item->jenis_usulan == 'demosi')
+                                        <span class="status-badge status-menunggu">Demosi</span>
+                                    @elseif($item->jenis_usulan == 'pemberhentian')
                                         <span class="status-badge status-ditolak">Pemberhentian</span>
+                                    @else
+                                        <span class="status-badge status-menunggu">{{ ucfirst($item->jenis_usulan) }}</span>
                                     @endif
                                 </td>
                                 <td>{{ $item->jabatan_lama }} ({{ $item->golongan_lama }})</td>

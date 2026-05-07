@@ -221,22 +221,72 @@
                     </div>
                     @endif
 
-                    <!-- D. MUTASI / DEMOSI -->
-                    @if($usulan->jenis_usulan == 'mutasi' || $usulan->jenis_usulan == 'demosi')
-                    <div class="section-title">D. Data {{ ucfirst($usulan->jenis_usulan) }}</div>
-                    <div class="form-group">
-                        <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
-                        <input type="text" name="unit_kerja_tujuan" value="{{ old('unit_kerja_tujuan', $usulan->unit_kerja_tujuan) }}" required placeholder="Contoh: UPTD Puskesmas Jati">
+                    <!-- D. MUTASI -->
+                    @if($usulan->jenis_usulan == 'mutasi')
+                    <div class="section-title">D. Data Mutasi</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jabatan Baru (Opsional)</label>
+                            <input type="text" name="jabatan_baru_mutasi" value="{{ old('jabatan_baru_mutasi', $usulan->jabatan_baru) }}" placeholder="Isi jika mutasi diikuti perubahan jabatan">
+                        </div>
+                        <div class="form-group">
+                            <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
+                            <input type="text" name="unit_kerja_tujuan_mutasi" value="{{ old('unit_kerja_tujuan_mutasi', $usulan->unit_kerja_tujuan) }}" required placeholder="Contoh: UPTD Puskesmas Jati">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label>Alasan {{ ucfirst($usulan->jenis_usulan) }} <span style="color:red;">*</span></label>
-                        <textarea name="alasan_perpindahan" rows="2" required placeholder="Jelaskan alasan pemindahan/demosi">{{ old('alasan_perpindahan', $usulan->alasan_perpindahan) }}</textarea>
+                        <label>Alasan Perpindahan <span style="color:red;">*</span></label>
+                        <textarea name="alasan_mutasi" rows="2" required placeholder="Jelaskan alasan pemindahan">{{ old('alasan_mutasi', $usulan->alasan_perpindahan) }}</textarea>
                     </div>
                     @endif
 
-                    <!-- E. PEMBERHENTIAN -->
+                    <!-- E. DEMOSI -->
+                    @if($usulan->jenis_usulan == 'demosi')
+                    <div class="section-title">E. Data Demosi</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Jabatan Baru <span style="color:red;">*</span></label>
+                            <input type="text" name="jabatan_baru_demosi" value="{{ old('jabatan_baru_demosi', $usulan->jabatan_baru) }}" required placeholder="Contoh: Analis Kebijakan Ahli Muda">
+                        </div>
+                        <div class="form-group">
+                            <label>Golongan Baru <span style="color:red;">*</span></label>
+                            <select name="golongan_baru_demosi" required>
+                                <option value="">Pilih Golongan</option>
+                                <option value="I/a" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'I/a' ? 'selected' : '' }}>I/a</option>
+                                <option value="I/b" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'I/b' ? 'selected' : '' }}>I/b</option>
+                                <option value="I/c" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'I/c' ? 'selected' : '' }}>I/c</option>
+                                <option value="I/d" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'I/d' ? 'selected' : '' }}>I/d</option>
+                                <option value="II/a" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'II/a' ? 'selected' : '' }}>II/a</option>
+                                <option value="II/b" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'II/b' ? 'selected' : '' }}>II/b</option>
+                                <option value="II/c" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'II/c' ? 'selected' : '' }}>II/c</option>
+                                <option value="II/d" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'II/d' ? 'selected' : '' }}>II/d</option>
+                                <option value="III/a" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'III/a' ? 'selected' : '' }}>III/a</option>
+                                <option value="III/b" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'III/b' ? 'selected' : '' }}>III/b</option>
+                                <option value="III/c" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'III/c' ? 'selected' : '' }}>III/c</option>
+                                <option value="III/d" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'III/d' ? 'selected' : '' }}>III/d</option>
+                                <option value="IV/a" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'IV/a' ? 'selected' : '' }}>IV/a</option>
+                                <option value="IV/b" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'IV/b' ? 'selected' : '' }}>IV/b</option>
+                                <option value="IV/c" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'IV/c' ? 'selected' : '' }}>IV/c</option>
+                                <option value="IV/d" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'IV/d' ? 'selected' : '' }}>IV/d</option>
+                                <option value="IV/e" {{ old('golongan_baru_demosi', $usulan->golongan_baru) == 'IV/e' ? 'selected' : '' }}>IV/e</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Unit Kerja Tujuan <span style="color:red;">*</span></label>
+                            <input type="text" name="unit_kerja_tujuan_demosi" value="{{ old('unit_kerja_tujuan_demosi', $usulan->unit_kerja_tujuan) }}" required placeholder="Contoh: UPTD Puskesmas Jati">
+                        </div>
+                        <div class="form-group">
+                            <label>Alasan Penurunan Jabatan / Sanksi <span style="color:red;">*</span></label>
+                            <textarea name="alasan_demosi" rows="2" required placeholder="Jelaskan sanksi atau alasan demosi kinerja">{{ old('alasan_demosi', $usulan->alasan_perpindahan) }}</textarea>
+                        </div>
+                    </div>
+                    @endif
+
+                    <!-- F. PEMBERHENTIAN -->
                     @if($usulan->jenis_usulan == 'pemberhentian')
-                    <div class="section-title">E. Data Pemberhentian</div>
+                    <div class="section-title">F. Data Pemberhentian</div>
                     <div class="form-group">
                         <label>Alasan Pemberhentian <span style="color:red;">*</span></label>
                         <select name="alasan_pemberhentian" required>
@@ -252,8 +302,8 @@
                     </div>
                     @endif
 
-                    <!-- F. SURAT PENGANTAR -->
-                    <div class="section-title">F. Surat Pengantar</div>
+                    <!-- G. SURAT PENGANTAR -->
+                    <div class="section-title">G. Surat Pengantar</div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Nomor Surat <span style="color:red;">*</span></label>
@@ -293,8 +343,8 @@
                         </div>
                     </div>
 
-                    <!-- G. PERSYARATAN (Upload Ulang Jika Perlu) -->
-                    <div class="section-title">G. Persyaratan</div>
+                    <!-- H. PERSYARATAN (Upload Ulang Jika Perlu) -->
+                    <div class="section-title">H. Persyaratan</div>
                     <div class="alert-success" style="margin-bottom: 15px; padding: 10px;">
                         <i class="fas fa-info-circle"></i> Kosongkan jika tidak ingin mengubah file persyaratan. File yang sudah ada akan tetap digunakan.
                     </div>

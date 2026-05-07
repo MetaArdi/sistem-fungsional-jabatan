@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usulan;
 use Illuminate\Support\Facades\Response;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -77,5 +78,27 @@ class LaporanController extends Controller
         ];
 
         return Response::streamDownload($callback, $filename, $headers);
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $bulan = $request->input('bulan', date('m'));
+        $tahun = $request->input('tahun', date('Y'));
+
+        $query = Usulan::with(['pegawai', 'opd']);
+
+        if ($bulan) {
+            $query->whereMonth('created_at', $bulan);
+        }
+        if ($tahun) {
+            $query->whereYear('created_at', $tahun);
+        }
+
+        $usulan = $query->orderBy('created_at', 'desc')->get();
+
+        $pdf = Pdf::loadView('laporan.pdf_rekap', compact('usulan', 'bulan', 'tahun'))
+                  ->setPaper('a4', 'landscape');
+                  
+        return $pdf->download("rekap_usulan_{$tahun}_{$bulan}.pdf");
     }
 }
