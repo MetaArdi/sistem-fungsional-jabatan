@@ -9,7 +9,6 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\UsulanController;
 use App\Http\Controllers\VerifikasiController;
 use App\Http\Controllers\BahanRapatController;
-use App\Http\Controllers\BahanRapatController;
 use App\Http\Controllers\SKController;
 use App\Http\Controllers\LaporanController;
 
