@@ -41,11 +41,12 @@ Sistem ini menggunakan alur verifikasi 2 tahap (Berkas dan Substansi) untuk memp
    php artisan key:generate
    ```
 
-5. **Migrasi Database**
-   Jalankan perintah berikut untuk mengupdate skema database sesuai dengan revisi terbaru (penambahan enum status usulan dan status_aktif pegawai):
+5. **Migrasi dan Seeding Database**
+   Jalankan perintah berikut untuk mengupdate skema database sesuai dengan revisi terbaru (penambahan enum status usulan, status_aktif pegawai, dan log integrasi), sekaligus memasukkan data dummy pengguna (Admin, Verifikator, dll):
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
    ```
+   *Jika sebelumnya sudah ter-migrate, jalankan:* `php artisan db:seed`
 
 6. **Storage Link**
    Untuk memastikan file upload dapat diakses publik:
